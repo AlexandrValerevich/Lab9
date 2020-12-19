@@ -1,7 +1,3 @@
-/*Дана строка слов. Сформируйте новую строку, вставив перед каждым из
-слов «а» и «но» запятую. Определите самую короткую подстроку и
-слово, с которого она начинается.*/
-
 #include <iostream>
 #include <string>
 #include <clocale>
@@ -87,20 +83,22 @@ string FindBiggestSubstr(string& str) {
 
 	int sizeOfMaxSubstr       = 0;
 	int firstPosBiggestSubstr = 0;
-	for (size_t i = 0; i < str.size(); i++)
+	char ch;
+
+	auto it = str.begin();
+	while (*it != ',') {
+		it++;
+		firstPosBiggestSubstr++;
+	}
+
+	for (size_t i=firstPosBiggestSubstr, j = firstPosBiggestSubstr + 1; j < str.size(); j++)
 	{
-		char ch = str.at(i);
+		ch = str.at(j);
 		if (ch == ',') {
-			for (size_t j = i + 1; j < str.size(); j++)
-			{
-				ch = str.at(j);
-				if (ch == ',') {
-					if (j - i > sizeOfMaxSubstr) {
-						sizeOfMaxSubstr       = j - i - 1; 
-						firstPosBiggestSubstr = i + 1;
-						break;
-					}
-				}
+			if (j - i > sizeOfMaxSubstr) {
+				sizeOfMaxSubstr       = j - i - 2; //вычет двух запятых
+				firstPosBiggestSubstr = i + 2; //с учетом вычета одного пробела и запятой
+				i = j;		
 			}
 		}
 	}
@@ -119,23 +117,19 @@ string FindBiggestWord(string& str) {
 
 	bool haveSpace = false;
 
-	for (size_t i = 0; i < str.length(); i++)
+	for (size_t i = 0, j = 0; i = 0, j < str.length(); j++)
 	{
-		for (size_t j = i; j < str.length(); j++)
-		{
-			if (str.at(i) == ' ') {
-				haveSpace = true;
-				if (sizeOfBiggestWorld <= j - i - 1) {
-					sizeOfBiggestWorld     = j - i - 1;
-					startIndexBiggeseWorld = i;
-				}
+		if (str.at(j) == ' ') {
+			if (j - i > sizeOfBiggestWorld) {
+				sizeOfBiggestWorld = j - i;
+				startIndexBiggeseWorld = i;
 				i = j + 1;
-				break;
 			}
 		}
 	}
-	if (haveSpace) return str.substr(startIndexBiggeseWorld, sizeOfBiggestWorld);
-	else           return str;
+	
+	return str.substr(startIndexBiggeseWorld, sizeOfBiggestWorld);
+	
 }
 
 int main() {
