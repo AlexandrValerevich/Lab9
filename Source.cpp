@@ -97,9 +97,9 @@ string FindBiggestSubstr(string& str) {
 		if (ch == ',') {
 			if (j - i > sizeOfMaxSubstr) {
 				sizeOfMaxSubstr       = j - i - 2; //вычет двух запятых
-				firstPosBiggestSubstr = i + 2; //с учетом вычета одного пробела и запятой
-				i = j;		
+				firstPosBiggestSubstr = i + 2; //с учетом вычета одного пробела и запятой	
 			}
+			i = j;
 		}
 	}
 
@@ -117,7 +117,7 @@ string FindBiggestWord(string& str) {
 
 	bool haveSpace = false;
 
-	for (size_t i = 0, j = 0; i = 0, j < str.length(); j++)
+	for (size_t i = 0, j = 0; j < str.length(); j++)
 	{
 		if (str.at(j) == ' ') {
 			if (j - i > sizeOfBiggestWorld) {
