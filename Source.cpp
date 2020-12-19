@@ -21,25 +21,51 @@ void DelSpaceInStart(string& str) {
 		str.erase(it);
 	}
 }
-
 void DelDoubleSpace(string& str) {
 
 	if (str.empty()) { return; }
 	
 	for (size_t i = 0; i < str.size(); i++)
 	{
-		while (str.at(i) == ' ' && ' ' == str.at(i+1) ) {
-			str.erase(i, 1);
+		try
+		{
+			while (str.at(i) == ' ' && ' ' == str.at(i + 1)) {
+				str.erase(i, 1);
+			}
+		}
+		catch (const std::out_of_range&)
+		{
+			return;
 		}
 	}
+}
+void DelSpaceInEnd(string& str) {
+	if (str.empty()) { return; }
+
+	int lastIndex = str.size() - 1;
+	while (str.at(lastIndex) == ' ')
+	{
+		str.erase(lastIndex--);
+	}
+}
+
+string GetString() {
+	string str;
+
+	cout << "Введите строку: ";
+	getline(cin, str);
+
+	DelSpaceInStart(str);
+	DelDoubleSpace(str);
+	DelSpaceInEnd(str);
+
+	return str;
 }
 
 void InsertCommaBeforeAAndNo(string& str) {
 
 	if (str.empty()) { return; }
 
-	DelSpaceInStart(str);
-	DelDoubleSpace(str);
 
 	for (size_t i = 0; i < str.length(); i++)
 	{
@@ -54,13 +80,10 @@ void InsertCommaBeforeAAndNo(string& str) {
 		}
 	}
 }
-
 string FindBiggestSubstr(string& str) {
 
 	if (str.empty()) { return ""; }
 
-	DelSpaceInStart(str);
-	DelDoubleSpace(str);
 
 	int sizeOfMaxSubstr       = 0;
 	int firstPosBiggestSubstr = 0;
@@ -87,13 +110,9 @@ string FindBiggestSubstr(string& str) {
 
 	return biggestSubstr;
 }
-
 string FindBiggestWord(string& str) {
 
 	if (str.empty()) { return ""; }
-
-	DelSpaceInStart(str);
-	DelDoubleSpace(str);
 
 	int sizeOfBiggestWorld     = 0;
 	int startIndexBiggeseWorld = 0;
@@ -127,8 +146,7 @@ int main() {
 
 	string str;
 
-	cout << "Введите строку: ";
-	getline(cin ,str);
+	str = GetString();
 	
 	InsertCommaBeforeAAndNo(str); //Вставка запятых перед А и Но
 
