@@ -65,14 +65,21 @@ void InsertCommaBeforeAAndNo(string& str) {
 
 	for (size_t i = 0; i < str.length(); i++)
 	{
-		if (str.at(i) == ',') {
-			while (str.at(++i) == ' ');
-			continue;
-		}
-		if (str.at(i) == ' ') {
-			if (str.substr(i + 1, 2) == "а " || str.substr(i + 1, 3) == "но ") {
-				str.insert(i++, ",");
+		try
+		{
+			if (str.at(i) == ',') {
+				while (str.at(++i) == ' ');
+				continue;
 			}
+			if (str.at(i) == ' ') {
+				if (str.substr(i + 1, 2) == "а " || str.substr(i + 1, 3) == "но ") {
+					str.insert(i++, ",");
+				}
+			}
+		}
+		catch (const std::out_of_range&)
+		{
+			return;
 		}
 	}
 }
@@ -127,8 +134,8 @@ string FindBiggestWord(const string& str ) {
 			if (j - i > sizeOfBiggestWorld) {
 				sizeOfBiggestWorld = j - i;
 				startIndexBiggeseWorld = i;
-				i = j + 1;
 			}
+			i = j + 1;
 		}
 	}
 	
