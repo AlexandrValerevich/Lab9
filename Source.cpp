@@ -83,6 +83,7 @@ void InsertCommaBeforeAAndNo(string& str) {
 		}
 	}
 }
+
 string FindBiggestSubstr(string& str) {
 
 	if (str.empty()) { return ""; }
@@ -119,6 +120,7 @@ string FindBiggestSubstr(string& str) {
 
 	return biggestSubstr;
 }
+
 string FindBiggestWord(const string& str ) {
 
 	if (str.empty()) { return ""; }
@@ -140,7 +142,6 @@ string FindBiggestWord(const string& str ) {
 	}
 	
 	return str.substr(startIndexBiggeseWorld, sizeOfBiggestWorld);
-	
 }
 
 int main() {
