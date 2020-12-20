@@ -88,8 +88,12 @@ string FindBiggestSubstr(string& str) {
 	auto it = str.begin();
 	while (*it != ',') {
 		it++;
+		if (it == str.end()) {
+			return "";
+		}
 		firstPosBiggestSubstr++;
 	}
+
 
 	for (size_t i=firstPosBiggestSubstr, j = firstPosBiggestSubstr + 1; j < str.size(); j++)
 	{
@@ -108,18 +112,18 @@ string FindBiggestSubstr(string& str) {
 
 	return biggestSubstr;
 }
-string FindBiggestWord(string& str) {
+string FindBiggestWord(const string& str ) {
 
 	if (str.empty()) { return ""; }
 
 	int sizeOfBiggestWorld     = 0;
 	int startIndexBiggeseWorld = 0;
 
-	bool haveSpace = false;
+	string temp = str + " ";
 
-	for (size_t i = 0, j = 0; j < str.length(); j++)
+	for (size_t i = 0, j = 0; j < temp.length(); j++)
 	{
-		if (str.at(j) == ' ') {
+		if (temp.at(j) == ' ' ) {
 			if (j - i > sizeOfBiggestWorld) {
 				sizeOfBiggestWorld = j - i;
 				startIndexBiggeseWorld = i;
